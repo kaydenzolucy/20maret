@@ -362,6 +362,136 @@
   }
   @keyframes spinNote{to{transform:rotate(360deg)}}
 
+
+  /* ---- letter / anniversary card ---- */
+  .env-wrap{display:flex;flex-direction:column;align-items:center;gap:1.4rem;margin-top:.5rem}
+  .envelope{
+    width:min(280px,72vw);
+    aspect-ratio:1.5;
+    position:relative;
+    cursor:pointer;
+    filter:drop-shadow(0 14px 30px rgba(0,0,0,.55));
+    transition:transform .6s var(--ease);
+  }
+  .envelope:active{transform:scale(.96)}
+  .env-back{
+    position:absolute;inset:0;border-radius:10px;
+    background:linear-gradient(160deg,#5b1a22,#3a0f16);
+    border:1px solid rgba(217,180,143,.25);
+  }
+  .env-letter-peek{
+    position:absolute;left:6%;right:6%;top:9%;bottom:14%;
+    background:linear-gradient(180deg,#e9dcd0,#d9c8b8);
+    border-radius:6px;
+    transition:transform 1s var(--ease) .45s;
+  }
+  .env-letter-peek::before{
+    content:'Dinda ♥';
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'Great Vibes',cursive;font-size:1.5rem;color:#5b1a22;
+  }
+  .env-front{
+    position:absolute;inset:0;border-radius:10px;
+    background:linear-gradient(200deg,#6d2029,#4a131b);
+    border:1px solid rgba(217,180,143,.2);
+    clip-path:polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+  }
+  .env-flap{
+    position:absolute;left:0;right:0;top:0;height:54%;
+    background:linear-gradient(180deg,#7e2530,#54161e);
+    clip-path:polygon(0 0, 100% 0, 50% 100%);
+    border-radius:10px 10px 0 0;
+    transform-origin:top center;
+    transition:transform .9s var(--ease);
+    z-index:3;
+    display:flex;align-items:flex-start;justify-content:center;
+  }
+  .seal{
+    width:44px;height:44px;border-radius:50%;margin-top:34%;
+    background:radial-gradient(circle at 35% 30%, #e8c79c, #b98d54 60%, #8a6534);
+    box-shadow:0 3px 10px rgba(0,0,0,.5), inset 0 0 0 4px rgba(91,26,34,.35);
+    color:#5b1a22;font-size:1.15rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
+  .envelope.open .env-letter-peek{transform:translateY(-46%)}
+  .env-hint{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--soft);font-weight:300}
+  .env-hint.pulse{animation:hintFloat 2.4s ease-in-out infinite}
+
+  /* modal surat */
+  .letter-modal{
+    position:fixed;inset:0;z-index:20;
+    display:flex;align-items:center;justify-content:center;
+    padding:1.2rem;
+    background:rgba(8,4,5,.75);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    opacity:0;visibility:hidden;
+    transition:opacity .8s var(--ease), visibility .8s;
+  }
+  .letter-modal.open{opacity:1;visibility:visible}
+  .paper{
+    width:min(560px,100%);
+    max-height:82vh;max-height:82svh;
+    overflow-y:auto;
+    padding:clamp(1.8rem,6vw,3rem) clamp(1.5rem,5.5vw,2.8rem);
+    border-radius:18px;
+    background:
+      radial-gradient(ellipse 90% 40% at 50% 0%, rgba(91,26,34,.25), transparent 60%),
+      linear-gradient(170deg,#1c0e12,#120709);
+    border:1px solid rgba(217,180,143,.28);
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(91,26,34,.3);
+    transform:translateY(40px) scale(.94);
+    transition:transform .9s var(--ease);
+    position:relative;
+  }
+  .letter-modal.open .paper{transform:none}
+  .paper .lm-eyebrow{font-size:.6rem;letter-spacing:.45em;text-transform:uppercase;color:var(--soft);text-align:center;font-weight:300}
+  .lm-title{
+    text-align:center;
+    font-size:clamp(2rem,8.5vw,3rem);
+    margin:1rem 0 1.6rem;
+    background:linear-gradient(100deg,var(--gold) 20%,#fff0dd 40%,var(--gold) 60%);
+    background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:shimmer 5s linear infinite;
+    text-shadow:none;
+    filter:drop-shadow(0 0 18px rgba(217,180,143,.35));
+  }
+  @keyframes shimmer{to{background-position:-200% 0}}
+  .paper .body p{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(1.02rem,4.2vw,1.2rem);line-height:2;
+    color:var(--cream);opacity:.9;margin-bottom:1.1rem;
+  }
+  .paper .body p:first-of-type::first-letter{
+    font-family:'Great Vibes',cursive;
+    font-size:2.6em;color:var(--gold);
+    float:left;line-height:.85;margin:.06em .12em 0 0;
+  }
+  .paper .sign{
+    text-align:right;margin-top:1.6rem;
+    font-family:'Great Vibes',cursive;font-size:1.7rem;color:var(--gold);
+  }
+  .paper .sign small{
+    display:block;font-family:'Montserrat',sans-serif;font-weight:300;
+    font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;
+    color:var(--soft);margin-top:.4rem;
+  }
+  .paper-close{
+    position:sticky;top:0;float:right;
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid rgba(217,180,143,.35);
+    background:rgba(20,10,13,.7);
+    color:var(--gold);font-size:1rem;cursor:pointer;
+    transition:all .4s var(--ease);
+    display:flex;align-items:center;justify-content:center;
+    z-index:2;
+  }
+  .paper-close:hover{border-color:var(--gold);box-shadow:0 0 14px rgba(217,180,143,.35)}
+  .music-btn{z-index:30}
+
   @media (prefers-reduced-motion: reduce){
     .heart,.heart-ring,.particle,.petal,.star,.scroll-hint,.music-btn.on{animation:none!important}
     .reveal,.ch,.amp,.divider,.quote .w{transition:none!important;opacity:1!important;transform:none!important;filter:none!important}
@@ -398,6 +528,37 @@
     ingin kuulang &mdash; pelan-pelan, selamanya.&rdquo;
   </p>
 </section>
+
+
+<!-- SURAT -->
+<section id="letter">
+  <p class="eyebrow reveal">Sebuah surat untukmu</p>
+  <div class="env-wrap reveal">
+    <div class="envelope" id="envelope" role="button" aria-label="Buka surat">
+      <div class="env-back"></div>
+      <div class="env-letter-peek"></div>
+      <div class="env-front"></div>
+      <div class="env-flap"><div class="seal">&hearts;</div></div>
+    </div>
+    <p class="env-hint pulse" id="envHint">ketuk amplop untuk membuka</p>
+  </div>
+</section>
+
+<!-- MODAL SURAT -->
+<div class="letter-modal" id="letterModal" aria-hidden="true">
+  <div class="paper" role="dialog" aria-label="Surat anniversary">
+    <button class="paper-close" id="paperClose" aria-label="Tutup">&times;</button>
+    <p class="lm-eyebrow">20 &middot; Maret &middot; 2026</p>
+    <p class="script lm-title">Happy Anniversary</p>
+    <div class="body">
+      <p>Untuk Dinda Aulya Fahira, perempuan yang membuat duniaku terasa lebih ringan.</p>
+      <p>Hari ini adalah pengingat bahwa cinta tidak selalu harus megah. Kadang ia hadir dalam hal-hal kecil &mdash; pesan selamat pagi, tawa di sela hari yang lelah, dan janji sederhana untuk tetap bertahan, apa pun yang terjadi.</p>
+      <p>Terima kasih sudah menjadi rumah bagi hariku, alasan di balik senyumku, dan bagian terbaik dari setiap cerita yang kutulis. Semoga di hari ini, dan di semua hari setelahnya, kita terus menulis bab-bab baru bersama.</p>
+      <p>Aku memilihmu &mdash; kemarin, hari ini, dan di setiap kehidupan setelahnya.</p>
+    </div>
+    <p class="sign">Mukti Akbar Siregar<small>yang selalu memilihmu</small></p>
+  </div>
+</div>
 
 <!-- COUNTER -->
 <section>
@@ -574,6 +735,27 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     const idx = Math.round(sc.scrollLeft / (sc.scrollWidth / 3 - 10));
     dots.forEach((d, i) => d.classList.toggle('on', i === Math.max(0, Math.min(2, idx))));
   }, { passive: true });
+})();
+
+
+/* ---------- surat: buka amplop ---------- */
+(function(){
+  const env = document.getElementById('envelope');
+  const hint = document.getElementById('envHint');
+  const modal = document.getElementById('letterModal');
+  const closeBtn = document.getElementById('paperClose');
+  let opened = false;
+  env.addEventListener('click', () => {
+    if (opened) { modal.classList.add('open'); return; }
+    opened = true;
+    env.classList.add('open');
+    hint.textContent = 'ketuk lagi untuk membaca';
+    setTimeout(() => modal.classList.add('open'), 900);
+  });
+  function close(){ modal.classList.remove('open'); }
+  closeBtn.addEventListener('click', e => { e.stopPropagation(); close(); });
+  modal.addEventListener('click', e => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
 
 /* ---------- gentle ambient music (WebAudio, generated) ---------- */
